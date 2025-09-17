@@ -20,7 +20,7 @@ export default function RootLayout({
       >
         <SidebarWrapper title="Krystof/Jan" initialState="opened" />
 
-        <div className="content flex-1 bg-brand-bg-dark hover:bg-brand-bg">
+        <div className="content flex-1 bg-brand-bg-dark hover:bg-brand-bg p-4">
           {children}
         </div>
       </body>

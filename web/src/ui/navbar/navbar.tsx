@@ -1,35 +1,19 @@
 'use client';
 import Link from 'next/link';
 import {
+  HardHat,
   House,
   Keyboard,
   NotebookPen,
+  Package,
   Palette,
   TestTubeDiagonal,
 } from 'lucide-react';
 import { JSX, useState } from 'react';
-import { Span } from 'next/dist/trace';
-import { OpenedState } from './sidebar';
 import Typewriter from './typewriter';
+import { NavigationItem } from '@/data/navigation';
 
-type GeneralNavbarItemInfo = {
-  opened: boolean;
-  icon: JSX.Element;
-  label: string;
-};
-
-type NestedNavbarItem = {
-  children: NavbarItemProps[];
-  openedItem: boolean;
-} & GeneralNavbarItemInfo;
-
-type LinkableItem = {
-  link: string;
-} & GeneralNavbarItemInfo;
-
-type NavbarItemProps = LinkableItem | NestedNavbarItem;
-
-export function NavbarItem(prop: NavbarItemProps) {
+export function NavbarItem(prop: NavigationItem) {
   const { label, icon, opened } = prop;
   const isNested = 'children' in prop;
   let content: JSX.Element;
@@ -69,9 +53,22 @@ interface SidebarProps {
 }
 
 export default function Navbar({ isOpened }: SidebarProps) {
-  const navigation: NavbarItemProps[] = [
+  const navigation: NavigationItem[] = [
     { label: 'Home', link: '/', icon: <House />, opened: isOpened },
     { label: 'Blog', link: '/blog', icon: <NotebookPen />, opened: isOpened },
+    {
+      label: 'Services',
+      link: '/services',
+      icon: <NotebookPen />,
+      opened: isOpened,
+    },
+    {
+      label: 'Products',
+      link: '/products',
+      icon: <HardHat />,
+      opened: isOpened,
+    },
+
     {
       label: 'test',
       icon: <TestTubeDiagonal />,
@@ -80,13 +77,13 @@ export default function Navbar({ isOpened }: SidebarProps) {
       children: [
         {
           label: 'Test Colors',
-          link: '/test-colors',
+          link: '/test/test-colors',
           icon: <Palette />,
           opened: isOpened,
         },
         {
           label: 'Test Typewriter',
-          link: '/test-typewriter',
+          link: '/test/test-typewriter',
           icon: <Keyboard />,
           opened: isOpened,
         },
