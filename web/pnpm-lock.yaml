@@ -7,6 +7,21 @@ settings:
 importers:
 
   .:
+    devDependencies:
+      '@types/node':
+        specifier: ^20
+        version: 20.19.16
+      '@types/react':
+        specifier: ^19
+        version: 19.1.13
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.1.9(@types/react@19.1.13)
+      typescript:
+        specifier: ^5
+        version: 5.9.2
+
+  client:
     dependencies:
       '@rusalka/ui':
         specifier: workspace:*
@@ -32,7 +47,7 @@ importers:
         version: 4.1.13
       '@types/node':
         specifier: ^20
-        version: 20.19.14
+        version: 20.19.16
       '@types/react':
         specifier: ^19
         version: 19.1.13
