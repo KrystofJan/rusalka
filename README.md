@@ -23,6 +23,21 @@ Why keep it locked away? The code's out here for anyone curious enough to peek u
 
 This is very much a work in progress as I figure out all the necessary technologies. Expect some experimental code, the occasional "why did I do it this way?" moment, and probably a few rewrites along the way.
 
+## Features
+- [ ] Services page
+    - [ ] Authentication
+    - [ ] Payments
+    - [ ] Dashboard
+- [ ] Product Page
+    - [ ] Website creation system (lower tier wordpress)
+        - [ ] Templates
+- [ ] Project Page
+    - [ ] Github profile integration
+- [ ] Blog
+  - [ ] Add a file based blog system with SSG
+- [ ] Localization
+  - [ ] Czech
+  - [ ] English
 ---
 
 Feel free to explore, learn, or just judge my code choices.
