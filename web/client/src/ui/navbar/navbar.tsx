@@ -34,13 +34,13 @@ export function NavbarItem(prop: NavigationItem) {
           {isItemOpened ? '-' : '+'} {inner}
         </span>
         <div className="pl-2 flex-0">
-          {isItemOpened && prop.children.map((x) => <NavbarItem {...x} />)}
+          {isItemOpened && prop.children.map((x, index) => <NavbarItem key={`${x.label}-${index}`} {...x} />)}
         </div>
       </>
     );
   } else {
     content = (
-      <Link href={prop.link} className={parentStyles}>
+      <Link href={prop.link} className={parentStyles} key={prop.link}>
         * {inner}
       </Link>
     );
@@ -93,8 +93,8 @@ export default function Navbar({ isOpened }: SidebarProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      {navigation.map((x) => (
-        <NavbarItem {...x} />
+      {navigation.map((x, index) => (
+        <NavbarItem key={`nav-${x.label}-${index}`} {...x} />
       ))}
     </div>
   );

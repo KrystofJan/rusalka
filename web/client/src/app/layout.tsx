@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
+// Import UI package styles to ensure fallback styles are available
+import '@rusalka/ui/styles';
 import SidebarWrapper from '@/ui/navbar/sidebar-wrapper';
 import { firaCode } from './fonts';
 
