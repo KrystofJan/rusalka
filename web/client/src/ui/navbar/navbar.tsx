@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
 import {
+  Bone,
+  Circle,
   HardHat,
   House,
   Keyboard,
@@ -34,7 +36,10 @@ export function NavbarItem(prop: NavigationItem) {
           {isItemOpened ? '-' : '+'} {inner}
         </span>
         <div className="pl-2 flex-0">
-          {isItemOpened && prop.children.map((x, index) => <NavbarItem key={`${x.label}-${index}`} {...x} />)}
+          {isItemOpened &&
+            prop.children.map((x, index) => (
+              <NavbarItem key={`${x.label}-${index}`} {...x} />
+            ))}
         </div>
       </>
     );
@@ -85,6 +90,18 @@ export default function Navbar({ isOpened }: SidebarProps) {
           label: 'Test Typewriter',
           link: '/test/test-typewriter',
           icon: <Keyboard />,
+          opened: isOpened,
+        },
+        {
+          label: 'Test skeleton',
+          link: '/test/skeleton-test',
+          icon: <Bone />,
+          opened: isOpened,
+        },
+        {
+          label: 'Test buttons',
+          link: '/test/test-ui-button',
+          icon: <Circle />,
           opened: isOpened,
         },
       ],
