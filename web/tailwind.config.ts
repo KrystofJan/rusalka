@@ -1,0 +1,72 @@
+import type { Config } from 'tailwindcss';
+
+export default {
+  content: [
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/ui/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        mono: ['var(--font-fira-code)', 'monospace'],
+        sans: ['var(--font-fira-code)', 'monospace'],
+      },
+      boxShadow: {
+        'terminal-sm': 'var(--shadow-sm)',
+        'terminal': 'var(--shadow)',
+        'terminal-md': 'var(--shadow-md)',
+        'terminal-lg': 'var(--shadow-lg)',
+        'terminal-xl': 'var(--shadow-xl)',
+        'terminal-2xl': 'var(--shadow-2xl)',
+        'terminal-inner': 'var(--shadow-inner)',
+        'glow-sm': 'var(--glow-sm)',
+        'glow-md': 'var(--glow-md)',
+        'glow-lg': 'var(--glow-lg)',
+      },
+      borderRadius: {
+        'brand-sm': 'var(--radius-sm)',
+        'brand': 'var(--radius)',
+        'brand-md': 'var(--radius-md)',
+        'brand-lg': 'var(--radius-lg)',
+        'brand-xl': 'var(--radius-xl)',
+        'brand-2xl': 'var(--radius-2xl)',
+      },
+      spacing: {
+        'brand-px': 'var(--space-px)',
+        'brand-1': 'var(--space-1)',
+        'brand-2': 'var(--space-2)',
+        'brand-3': 'var(--space-3)',
+        'brand-4': 'var(--space-4)',
+        'brand-5': 'var(--space-5)',
+        'brand-6': 'var(--space-6)',
+        'brand-8': 'var(--space-8)',
+        'brand-10': 'var(--space-10)',
+        'brand-12': 'var(--space-12)',
+        'brand-16': 'var(--space-16)',
+        'brand-20': 'var(--space-20)',
+        'brand-24': 'var(--space-24)',
+        'brand-32': 'var(--space-32)',
+      },
+      transitionDuration: {
+        'brand-fast': 'var(--transition-fast)',
+        'brand-normal': 'var(--transition-normal)',
+        'brand-slow': 'var(--transition-slow)',
+      },
+      fontSize: {
+        'brand-xs': 'var(--text-xs)',
+        'brand-sm': 'var(--text-sm)',
+        'brand-base': 'var(--text-base)',
+        'brand-lg': 'var(--text-lg)',
+        'brand-xl': 'var(--text-xl)',
+        'brand-2xl': 'var(--text-2xl)',
+        'brand-3xl': 'var(--text-3xl)',
+        'brand-4xl': 'var(--text-4xl)',
+        'brand-5xl': 'var(--text-5xl)',
+        'brand-6xl': 'var(--text-6xl)',
+      },
+    },
+  },
+  plugins: [],
+} satisfies Config;

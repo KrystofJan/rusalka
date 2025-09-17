@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
+/* Font configuration */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-fira-code: 'Fira Code', monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --brand-red-h: 340;
+  --brand-red-s: 58%;
+  --brand-red-l: 72%;
+
+  --brand-green-h: 140;
+  --brand-green-s: 20%;
+  --brand-green-l: 65%;
+
+  --brand-yellow-h: 25;
+  --brand-yellow-s: 45%;
+  --brand-yellow-l: 75%;
+
+  --brand-purple-h: 260;
+  --brand-purple-s: 35%;
+  --brand-purple-l: 72%;
+
+  --brand-magenta-h: 320;
+  --brand-magenta-s: 60%;
+  --brand-magenta-l: 75%;
+
+  --brand-orange-h: 15;
+  --brand-orange-s: 85%;
+  --brand-orange-l: 76%;
+
+  --brand-blue-h: 230;
+  --brand-blue-s: 55%;
+  --brand-blue-l: 70%;
+
+  --brand-cyan-h: 185;
+  --brand-cyan-s: 25%;
+  --brand-cyan-l: 63%;
+
+  /* Dynamic color variants calculated from base HSL values */
+  /* Red family */
+  --color-brand-red: hsl(var(--brand-red-h), var(--brand-red-s), var(--brand-red-l));
+  --color-brand-red-light: hsl(var(--brand-red-h), calc(var(--brand-red-s) * 0.9), calc(var(--brand-red-l) + 8%));
+  --color-brand-red-dark: hsl(var(--brand-red-h), calc(var(--brand-red-s) * 1.1), calc(var(--brand-red-l) - 12%));
+  --color-brand-red-darkest: hsl(var(--brand-red-h), calc(var(--brand-red-s) * 1.2), calc(var(--brand-red-l) - 20%));
+
+  /* Green family */
+  --color-brand-green: hsl(var(--brand-green-h), var(--brand-green-s), var(--brand-green-l));
+  --color-brand-green-light: hsl(var(--brand-green-h), calc(var(--brand-green-s) * 1.2), calc(var(--brand-green-l) + 8%));
+  --color-brand-green-dark: hsl(var(--brand-green-h), calc(var(--brand-green-s) * 1.1), calc(var(--brand-green-l) - 12%));
+  --color-brand-green-darkest: hsl(var(--brand-green-h), calc(var(--brand-green-s) * 1.3), calc(var(--brand-green-l) - 20%));
+
+  /* Yellow family */
+  --color-brand-yellow: hsl(var(--brand-yellow-h), var(--brand-yellow-s), var(--brand-yellow-l));
+  --color-brand-yellow-light: hsl(var(--brand-yellow-h), calc(var(--brand-yellow-s) * 0.9), calc(var(--brand-yellow-l) + 8%));
+  --color-brand-yellow-dark: hsl(var(--brand-yellow-h), calc(var(--brand-yellow-s) * 1.1), calc(var(--brand-yellow-l) - 12%));
+  --color-brand-yellow-darkest: hsl(var(--brand-yellow-h), calc(var(--brand-yellow-s) * 1.2), calc(var(--brand-yellow-l) - 20%));
+
+  /* Purple family */
+  --color-brand-purple: hsl(var(--brand-purple-h), var(--brand-purple-s), var(--brand-purple-l));
+  --color-brand-purple-light: hsl(var(--brand-purple-h), calc(var(--brand-purple-s) * 0.9), calc(var(--brand-purple-l) + 8%));
+  --color-brand-purple-dark: hsl(var(--brand-purple-h), calc(var(--brand-purple-s) * 1.1), calc(var(--brand-purple-l) - 12%));
+  --color-brand-purple-darkest: hsl(var(--brand-purple-h), calc(var(--brand-purple-s) * 1.2), calc(var(--brand-purple-l) - 20%));
+
+  /* Magenta family */
+  --color-brand-magenta: hsl(var(--brand-magenta-h), var(--brand-magenta-s), var(--brand-magenta-l));
+  --color-brand-magenta-light: hsl(var(--brand-magenta-h), calc(var(--brand-magenta-s) * 0.9), calc(var(--brand-magenta-l) + 8%));
+  --color-brand-magenta-dark: hsl(var(--brand-magenta-h), calc(var(--brand-magenta-s) * 1.1), calc(var(--brand-magenta-l) - 12%));
+  --color-brand-magenta-darkest: hsl(var(--brand-magenta-h), calc(var(--brand-magenta-s) * 1.2), calc(var(--brand-magenta-l) - 20%));
+
+  /* Orange family */
+  --color-brand-orange: hsl(var(--brand-orange-h), var(--brand-orange-s), var(--brand-orange-l));
+  --color-brand-orange-light: hsl(var(--brand-orange-h), calc(var(--brand-orange-s) * 0.9), calc(var(--brand-orange-l) + 8%));
+  --color-brand-orange-dark: hsl(var(--brand-orange-h), calc(var(--brand-orange-s) * 1.1), calc(var(--brand-orange-l) - 12%));
+  --color-brand-orange-darkest: hsl(var(--brand-orange-h), calc(var(--brand-orange-s) * 1.2), calc(var(--brand-orange-l) - 20%));
+
+  /* Blue family */
+  --color-brand-blue: hsl(var(--brand-blue-h), var(--brand-blue-s), var(--brand-blue-l));
+  --color-brand-blue-light: hsl(var(--brand-blue-h), calc(var(--brand-blue-s) * 0.9), calc(var(--brand-blue-l) + 8%));
+  --color-brand-blue-dark: hsl(var(--brand-blue-h), calc(var(--brand-blue-s) * 1.1), calc(var(--brand-blue-l) - 12%));
+  --color-brand-blue-darkest: hsl(var(--brand-blue-h), calc(var(--brand-blue-s) * 1.2), calc(var(--brand-blue-l) - 20%));
+
+  /* Cyan family */
+  --color-brand-cyan: hsl(var(--brand-cyan-h), var(--brand-cyan-s), var(--brand-cyan-l));
+  --color-brand-cyan-light: hsl(var(--brand-cyan-h), calc(var(--brand-cyan-s) * 1.2), calc(var(--brand-cyan-l) + 8%));
+  --color-brand-cyan-dark: hsl(var(--brand-cyan-h), calc(var(--brand-cyan-s) * 1.1), calc(var(--brand-cyan-l) - 12%));
+  --color-brand-cyan-darkest: hsl(var(--brand-cyan-h), calc(var(--brand-cyan-s) * 1.3), calc(var(--brand-cyan-l) - 20%));
+
+  /* Background and foreground */
+  --color-brand-bg: #161617;
+  --color-brand-bg-dark: #131314;
+  --color-brand-fg: #c9c7cd;
+  --color-brand-black: #27272a;
+
+  /* Subtext variations */
+  --color-brand-subtext1: #b4b1ba;
+  --color-brand-subtext2: #9f9ca6;
+  --color-brand-subtext3: #8b8693;
+  --color-brand-subtext4: #6c6874;
+
+  /* Gray scale */
+  --color-brand-gray0: #18181a;
+  --color-brand-gray1: #1b1b1c;
+  --color-brand-gray2: #2a2a2c;
+  --color-brand-gray3: #313134;
+  --color-brand-gray4: #3b3b3e;
+  --color-brand-gray5: #444448;
+
+  /* Special */
+  --color-brand-none: transparent;
+
+  /* Terminal-style shadows using darker colors */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+
+  /* Terminal borders */
+  --border-terminal: 1px solid var(--color-brand-gray4);
+  --border-terminal-bright: 1px solid var(--color-brand-gray5);
+  --border-glow: 1px solid var(--color-brand-cyan);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Custom sidebar animations */
+.sidebar-transition {
+  transition-property: width, padding-left, padding-right, gap;
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-duration: 400ms;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.sidebar-content-transition {
+  transition-property: gap, opacity, transform;
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-duration: 400ms;
 }
