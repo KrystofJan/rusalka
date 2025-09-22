@@ -13,6 +13,7 @@ pkgs.mkShell {
     gopls
     gotools
     templ
+    go-migrate
 
     # nix stuff
     nixd
