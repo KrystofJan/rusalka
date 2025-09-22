@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "./Button";
+import * as React from "react";
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -118,73 +119,171 @@ export const Disabled: Story = {
 // Comprehensive styling test story
 export const StylingTest: Story = {
   render: () => {
-    // Create a simple skeleton component for testing
-    const TestSkeleton: React.FC<{ size: "sm" | "md" | "lg" }> = ({ size }) => {
-      const skeletonSizes = {
-        sm: "h-8 px-3 py-1.5 text-sm min-w-[60px]",
-        md: "h-10 px-4 py-2 text-base min-w-[80px]",
-        lg: "h-12 px-6 py-3 text-lg min-w-[100px]",
-      };
-
-      return (
-        <div
-          className={`inline-block rounded-md bg-slate-200 animate-pulse ${skeletonSizes[size]}`}
-          aria-hidden="true"
-          role="presentation"
-        />
-      );
-    };
-
     return (
-      <div className="space-y-8">
+      <div className="space-y-8 p-6">
         <div>
-          <h3 className="text-lg font-semibold mb-4">Disabled Button States Test</h3>
-          <p className="text-sm text-gray-600 mb-4">
-            All disabled buttons should show reduced opacity and disabled cursor:
+          <h3 className="text-lg font-semibold mb-4 text-brand-fg">
+            Comprehensive Button System Test
+          </h3>
+          <p className="text-sm text-brand-subtext1 mb-6">
+            Testing all variants, sizes, and interaction states with the new
+            unified system.
           </p>
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <h4 className="text-sm font-medium mb-2">Small Buttons</h4>
-              <div className="space-y-2">
-                <Button size="sm" variant="primary" disabled>Primary Disabled</Button>
-                <Button size="sm" variant="secondary" disabled>Secondary Disabled</Button>
-                <Button size="sm" variant="outline" disabled>Outline Disabled</Button>
-                <Button size="sm" variant="ghost" disabled>Ghost Disabled</Button>
-                <Button size="sm" variant="destructive" disabled>Destructive Disabled</Button>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium mb-2">Medium Buttons</h4>
-              <div className="space-y-2">
-                <Button size="md" variant="primary" disabled>Primary Disabled</Button>
-                <Button size="md" variant="secondary" disabled>Secondary Disabled</Button>
-                <Button size="md" variant="outline" disabled>Outline Disabled</Button>
-                <Button size="md" variant="ghost" disabled>Ghost Disabled</Button>
-                <Button size="md" variant="destructive" disabled>Destructive Disabled</Button>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium mb-2">Large Buttons</h4>
-              <div className="space-y-2">
-                <Button size="lg" variant="primary" disabled>Primary Disabled</Button>
-                <Button size="lg" variant="secondary" disabled>Secondary Disabled</Button>
-                <Button size="lg" variant="outline" disabled>Outline Disabled</Button>
-                <Button size="lg" variant="ghost" disabled>Ghost Disabled</Button>
-                <Button size="lg" variant="destructive" disabled>Destructive Disabled</Button>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div>
-          <h3 className="text-lg font-semibold mb-4">Skeleton Animation Test</h3>
-          <p className="text-sm text-gray-600 mb-4">
-            Skeletons should display smooth pulse animation:
-          </p>
-          <div className="flex gap-4 items-center">
-            <TestSkeleton size="sm" />
-            <TestSkeleton size="md" />
-            <TestSkeleton size="lg" />
+          <div className="space-y-8">
+            {/* All Variants in All Sizes */}
+            <div>
+              <h4 className="text-md font-medium mb-4 text-brand-cyan">
+                All Variants & Sizes
+              </h4>
+              <div className="grid grid-cols-5 gap-6">
+                <div className="space-y-3">
+                  <h5 className="text-xs font-medium text-brand-subtext2 uppercase">
+                    Primary
+                  </h5>
+                  <Button size="sm" variant="primary">
+                    Small
+                  </Button>
+                  <Button size="md" variant="primary">
+                    Medium
+                  </Button>
+                  <Button size="lg" variant="primary">
+                    Large
+                  </Button>
+                </div>
+                <div className="space-y-3">
+                  <h5 className="text-xs font-medium text-brand-subtext2 uppercase">
+                    Secondary
+                  </h5>
+                  <Button size="sm" variant="secondary">
+                    Small
+                  </Button>
+                  <Button size="md" variant="secondary">
+                    Medium
+                  </Button>
+                  <Button size="lg" variant="secondary">
+                    Large
+                  </Button>
+                </div>
+                <div className="space-y-3">
+                  <h5 className="text-xs font-medium text-brand-subtext2 uppercase">
+                    Outline
+                  </h5>
+                  <Button size="sm" variant="outline">
+                    Small
+                  </Button>
+                  <Button size="md" variant="outline">
+                    Medium
+                  </Button>
+                  <Button size="lg" variant="outline">
+                    Large
+                  </Button>
+                </div>
+                <div className="space-y-3">
+                  <h5 className="text-xs font-medium text-brand-subtext2 uppercase">
+                    Ghost
+                  </h5>
+                  <Button size="sm" variant="ghost">
+                    Small
+                  </Button>
+                  <Button size="md" variant="ghost">
+                    Medium
+                  </Button>
+                  <Button size="lg" variant="ghost">
+                    Large
+                  </Button>
+                </div>
+                <div className="space-y-3">
+                  <h5 className="text-xs font-medium text-brand-subtext2 uppercase">
+                    Destructive
+                  </h5>
+                  <Button size="sm" variant="destructive">
+                    Small
+                  </Button>
+                  <Button size="md" variant="destructive">
+                    Medium
+                  </Button>
+                  <Button size="lg" variant="destructive">
+                    Large
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Disabled States */}
+            <div>
+              <h4 className="text-md font-medium mb-4 text-brand-cyan">
+                Disabled States
+              </h4>
+              <p className="text-sm text-brand-subtext2 mb-4">
+                All disabled buttons show consistent opacity and cursor
+                behavior.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button variant="primary" disabled>
+                  Primary Disabled
+                </Button>
+                <Button variant="secondary" disabled>
+                  Secondary Disabled
+                </Button>
+                <Button variant="outline" disabled>
+                  Outline Disabled
+                </Button>
+                <Button variant="ghost" disabled>
+                  Ghost Disabled
+                </Button>
+                <Button variant="destructive" disabled>
+                  Destructive Disabled
+                </Button>
+              </div>
+            </div>
+            {/* Interaction States */}
+            <div>
+              <h4 className="text-md font-medium mb-4 text-brand-cyan">
+                Interaction States
+              </h4>
+              <p className="text-sm text-brand-subtext2 mb-4">
+                Hover, focus (Tab), and click to test all interaction states.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button variant="primary">Hover & Focus Me</Button>
+                <Button variant="outline">Try Tab Navigation</Button>
+                <Button variant="ghost">Subtle Interactions</Button>
+              </div>
+            </div>
+
+            {/* Color System Integration */}
+            <div>
+              <h4 className="text-md font-medium mb-4 text-brand-cyan">
+                Color System Integration
+              </h4>
+              <p className="text-sm text-brand-subtext2 mb-4">
+                Buttons automatically use the brand color system with client
+                override capability.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <h5 className="text-sm font-medium text-brand-fg">
+                    Semantic Mapping
+                  </h5>
+                  <div className="text-xs text-brand-subtext2 space-y-1">
+                    <div>• Primary → brand-primary (cyan)</div>
+                    <div>• Secondary → brand-secondary (red)</div>
+                    <div>• Destructive → brand-error (red)</div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h5 className="text-sm font-medium text-brand-fg">
+                    Client Overrides
+                  </h5>
+                  <div className="text-xs text-brand-subtext2 space-y-1">
+                    <div>• --client-primary-h controls primary hue</div>
+                    <div>• --client-secondary-h controls secondary hue</div>
+                    <div>• All variants update automatically</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -216,58 +315,137 @@ export const AllSizes: Story = {
   ),
 };
 
-// Skeleton loading demonstration
-export const SkeletonLoading: Story = {
+// Comprehensive Design System Showcase
+export const DesignSystemShowcase: Story = {
   render: () => (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-semibold mb-4">Skeleton Loading States</h3>
-        <p className="text-sm text-gray-600 mb-4">
-          Clean, minimal skeletons shown during SSR and before hydration:
+    <div className="space-y-8 p-6 bg-brand-bg text-brand-fg">
+      <div className="text-center space-y-2">
+        <h2 className="text-2xl font-bold text-brand-fg">
+          Comprehensive Button Design System
+        </h2>
+        <p className="text-brand-subtext1">
+          Unified styling with semantic color mapping and client override
+          capability
         </p>
-        <div className="flex flex-wrap gap-4 items-center">
-          <div className="inline-block rounded-md bg-slate-200 animate-pulse h-8 px-3 py-1.5 text-sm min-w-[60px]" />
-          <div className="inline-block rounded-md bg-slate-200 animate-pulse h-10 px-4 py-2 text-base min-w-[80px]" />
-          <div className="inline-block rounded-md bg-slate-200 animate-pulse h-12 px-6 py-3 text-lg min-w-[100px]" />
-        </div>
       </div>
-      <div>
-        <h3 className="text-lg font-semibold mb-4">
-          Actual Buttons (Post-Hydration)
+
+      {/* Color System Integration */}
+      <div className="bg-brand-gray1 p-6 rounded-brand-lg border border-brand-gray3">
+        <h3 className="text-lg font-semibold mb-4 text-brand-cyan">
+          🎨 Color System Integration
         </h3>
-        <p className="text-sm text-gray-600 mb-4">
-          After hydration, skeletons are seamlessly replaced with fully-styled
-          buttons:
-        </p>
-        <div className="flex flex-wrap gap-4 items-center">
-          <Button size="sm">Small Button</Button>
-          <Button size="md">Medium Button</Button>
-          <Button size="lg">Large Button</Button>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="space-y-2">
+            <h4 className="text-sm font-medium text-brand-fg">
+              Primary Colors
+            </h4>
+            <div className="space-y-2">
+              <div className="text-xs text-brand-subtext2">
+                Uses brand-primary (cyan)
+              </div>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h4 className="text-sm font-medium text-brand-fg">
+              Secondary Colors
+            </h4>
+            <div className="space-y-2">
+              <Button variant="secondary" size="sm">
+                Secondary Button
+              </Button>
+              <div className="text-xs text-brand-subtext2">
+                Uses brand-secondary (red)
+              </div>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h4 className="text-sm font-medium text-brand-fg">Error Colors</h4>
+            <div className="space-y-2">
+              <Button variant="destructive" size="sm">
+                Destructive Button
+              </Button>
+              <div className="text-xs text-brand-subtext2">
+                Uses brand-error (red)
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="text-xs text-brand-subtext2 bg-brand-gray2 p-3 rounded-brand">
+          💡 Change --client-primary-h, --client-secondary-h in globals.css to
+          rebrand all buttons instantly
         </div>
       </div>
-      <div>
-        <h3 className="text-lg font-semibold mb-4">Side-by-Side Comparison</h3>
-        <p className="text-sm text-gray-600 mb-4">
-          Skeletons match exact button dimensions to prevent layout shift:
-        </p>
+
+      {/* Interaction States */}
+      <div className="bg-brand-gray1 p-6 rounded-brand-lg border border-brand-gray3">
+        <h3 className="text-lg font-semibold mb-4 text-brand-cyan">
+          ⚡ Interaction States
+        </h3>
         <div className="space-y-4">
-          <div className="flex gap-4 items-center">
-            <span className="text-sm font-medium w-16">Small:</span>
-            <div className="inline-block rounded-md bg-slate-200 animate-pulse h-8 px-3 py-1.5 text-sm min-w-[60px]" />
-            <span className="text-gray-400">→</span>
-            <Button size="sm">Small</Button>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="primary">Hover Me</Button>
+            <Button variant="outline">Focus with Tab</Button>
+            <Button variant="ghost">Click & Hold</Button>
+            <Button variant="secondary" disabled>
+              Disabled State
+            </Button>
           </div>
-          <div className="flex gap-4 items-center">
-            <span className="text-sm font-medium w-16">Medium:</span>
-            <div className="inline-block rounded-md bg-slate-200 animate-pulse h-10 px-4 py-2 text-base min-w-[80px]" />
-            <span className="text-gray-400">→</span>
-            <Button size="md">Medium</Button>
+          <div className="text-xs text-brand-subtext2">
+            All buttons support hover, focus, active, and disabled states with
+            consistent animations
           </div>
-          <div className="flex gap-4 items-center">
-            <span className="text-sm font-medium w-16">Large:</span>
-            <div className="inline-block rounded-md bg-slate-200 animate-pulse h-12 px-6 py-3 text-lg min-w-[100px]" />
-            <span className="text-gray-400">→</span>
-            <Button size="lg">Large</Button>
+        </div>
+      </div>
+
+      {/* Design Tokens */}
+      <div className="bg-brand-gray1 p-6 rounded-brand-lg border border-brand-gray3">
+        <h3 className="text-lg font-semibold mb-4 text-brand-cyan">
+          🔧 Design Tokens
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <h4 className="text-sm font-medium text-brand-fg">
+              Spacing & Typography
+            </h4>
+            <div className="space-y-2">
+              <Button size="sm">Small (--space-3, --text-sm)</Button>
+              <Button size="md">Medium (--space-4, --text-base)</Button>
+              <Button size="lg">Large (--space-6, --text-lg)</Button>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <h4 className="text-sm font-medium text-brand-fg">Border Radius</h4>
+            <div className="space-y-2">
+              <Button size="sm" className="rounded-brand-sm">
+                Small Radius
+              </Button>
+              <Button size="md" className="rounded-brand-md">
+                Medium Radius
+              </Button>
+              <Button size="lg" className="rounded-brand-lg">
+                Large Radius
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Accessibility */}
+      <div className="bg-brand-gray1 p-6 rounded-brand-lg border border-brand-gray3">
+        <h3 className="text-lg font-semibold mb-4 text-brand-cyan">
+          ♿ Accessibility Features
+        </h3>
+        <div className="space-y-4">
+          <div className="flex flex-wrap gap-4">
+            <Button variant="primary">WCAG Focus Ring</Button>
+            <Button variant="outline">Keyboard Navigation</Button>
+            <Button variant="ghost">Screen Reader Friendly</Button>
+          </div>
+          <div className="text-xs text-brand-subtext2 space-y-1">
+            <div>• Focus rings meet WCAG contrast requirements</div>
+            <div>• Proper disabled state handling</div>
+            <div>• Minimum touch target sizes (44px)</div>
+            <div>• Semantic HTML with proper ARIA attributes</div>
           </div>
         </div>
       </div>
