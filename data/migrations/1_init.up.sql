@@ -20,6 +20,7 @@ create table accounts (
     first_name text not null,
     last_name text not null,
     role role not null default 'user',
+    profile_pic_url text,
     phone_number text
 );
 

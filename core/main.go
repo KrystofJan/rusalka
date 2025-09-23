@@ -1,26 +1,10 @@
 package main
 
-import (
-  "net/http"
-
-  "github.com/gin-gonic/gin"
-)
+import . "github.com/KrystofJan/rusalka/core/app"
 
 func main() {
-  r := gin.Default()
+	app := NewApp("8080")
+	app.SetupRoutes()
 
-  r.GET("/ping", func(c *gin.Context) {
-    c.JSON(http.StatusOK, gin.H{
-      "message": "pong",
-    })
-  })
-
-  r.Run()
+	app.Run()
 }
-
-// docker run -d \
-// 	--name some-postgres \
-// 	-e POSTGRES_PASSWORD=mysecretpassword \
-// 	-e PGDATA=/var/lib/postgresql/data/pgdata \
-// 	-v /custom/mount:/var/lib/postgresql/data \
-// 	postgres

@@ -14,6 +14,7 @@ pkgs.mkShell {
     gotools
     templ
     go-migrate
+    sqlc
 
     # nix stuff
     nixd
