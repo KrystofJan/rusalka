@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import { Select, type SelectProps } from "../Select/Select";
-import { FormField, type FormFieldProps } from "../FormField/FormField";
+import { Select, type SelectProps, FormField, type FormFieldProps } from "..";
 
 export type ValidatedSelectProps = Omit<SelectProps, "variant"> & {
   /**
@@ -77,11 +76,7 @@ export const ValidatedSelect: React.FC<ValidatedSelectProps> = ({
       labelWidth={labelWidth}
       {...fieldProps}
     >
-      <Select
-        variant={variant}
-        className={className}
-        {...selectProps}
-      />
+      <Select variant={variant} className={className} {...selectProps} />
     </FormField>
   );
 };

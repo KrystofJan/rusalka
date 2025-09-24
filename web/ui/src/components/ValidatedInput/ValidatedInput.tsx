@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import { Input, type InputProps } from "../Input/Input";
-import { FormField, type FormFieldProps } from "../FormField/FormField";
+import { Input, type InputProps, FormField, type FormFieldProps } from "..";
 import { cn } from "../../utils/cn";
 
 export type ValidatedInputProps = Omit<InputProps, "variant"> & {

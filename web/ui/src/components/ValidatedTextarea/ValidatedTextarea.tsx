@@ -1,7 +1,11 @@
 "use client";
 import React from "react";
-import { Textarea, type TextareaProps } from "../Textarea/Textarea";
-import { FormField, type FormFieldProps } from "../FormField/FormField";
+import {
+  Textarea,
+  type TextareaProps,
+  FormField,
+  type FormFieldProps,
+} from "..";
 
 export type ValidatedTextareaProps = Omit<TextareaProps, "variant"> & {
   /**
