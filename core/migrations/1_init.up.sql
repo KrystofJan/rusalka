@@ -31,3 +31,9 @@ create table projects (
     github_repo text not null,
     public boolean not null default true
 );
+
+INSERT INTO accounts (
+    email, first_name, last_name, role
+) VALUES ( 
+    'jendazah@gmail.com', 'Jan-Krystof', 'Kujel Zahradnik', 'admin' 
+)
