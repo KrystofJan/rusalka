@@ -11,9 +11,9 @@ import (
 )
 
 type User struct {
-	ID    string
-	Email string
-	Name  string
+	ID    string `json:"id"`
+	Email string `json:"email"`
+	Name  string `json:"name"`
 }
 
 var (
@@ -39,5 +39,11 @@ func UserFromRequest(r *http.Request) (User, error) {
 	}
 	fmt.Print("Hello")
 
-	return User{ID: userID}, nil
+	var email string
+	var name string
+
+	token.Get("email", &email)
+	token.Get("name", &name)
+
+	return User{ID: userID, Email: email, Name: name}, nil
 }

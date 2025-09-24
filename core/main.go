@@ -1,7 +1,7 @@
 package main
 
 import (
-	. "github.com/KrystofJan/rusalka/core/app"
+	. "github.com/KrystofJan/rusalka/core/internal/app"
 )
 
 func main() {

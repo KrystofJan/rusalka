@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/KrystofJan/rusalka/core/db"
-	er "github.com/KrystofJan/rusalka/core/error"
-	"github.com/KrystofJan/rusalka/core/repository"
+	"github.com/KrystofJan/rusalka/core/internal/db"
+	er "github.com/KrystofJan/rusalka/core/internal/error"
+	"github.com/KrystofJan/rusalka/core/internal/repository"
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5/pgtype"
 )
