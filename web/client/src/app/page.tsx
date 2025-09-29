@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
-import { AuthForm } from '@/components/auth-form';
-import { GoApiTest } from '@/components/go-api-test';
+import { Authenticated } from '@/lib/auth-checks';
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -11,14 +10,47 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const { token } = await auth.api.getToken({
-    headers: await headers(),
-  });
+  let values;
+  // TODO: Handle error
+  const { token, error: _error } = await Authenticated('server');
 
-  const res = await fetch('http://localhost:8080/api/me', {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  const data = await res.json();
+  if (!token) {
+    values = (
+      <div>
+        <h2>User not signed in</h2>
+      </div>
+    );
+  } else {
+    console.log(token);
+    const res = await fetch('http://localhost:8080/api/me', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+
+    const response = await fetch(
+      `http://localhost:8080/api/accounts/${data.id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    const data2 = await response.json();
+    values = (
+      <div>
+        <h2 className="text-xl font-bold mb-4">UserID: {data.id}</h2>
+        <h2 className="text-xl font-bold mb-4">Email: {data.email}</h2>
+        <h2 className="text-xl font-bold mb-4">Name: {data.name}</h2>
+        <h2 className="text-xl font-bold mb-4">
+          FirstName: {data2.first_name}
+        </h2>
+        <h2 className="text-xl font-bold mb-4">LastName: {data2.last_name}</h2>
+        <h2 className="text-xl font-bold mb-4">role: {data2.role}</h2>
+        <h2 className="text-xl font-bold mb-4">
+          PhoneNUmber: {data2.phone_number}
+        </h2>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-brand-8 min-h-screen p-brand-8 shadow-terminal-xl">
@@ -26,11 +58,7 @@ export default async function Home() {
         <p className="text-brand-xl text-brand-subtext1">Rusalka</p>
       </div>
 
-      <div className="space-y-8">
-        <div>
-          <h2 className="text-xl font-bold mb-4">UserID: {data.ID}</h2>
-        </div>
-      </div>
+      <div className="space-y-8">{values}</div>
     </div>
   );
 }

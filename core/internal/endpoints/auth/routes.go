@@ -1,12 +1,11 @@
 package auth
 
 import (
-	"context"
-
+	"github.com/KrystofJan/rusalka/core/internal/middleware"
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes(ctx context.Context, router *gin.Engine) {
-	router.GET("/api/auth/verify", TryUserFromRequest)
-	router.GET("/api/me", TryUserFromRequest)
+func SetupRoutes(router *gin.Engine) {
+	auth_context := AuthHandlerContext{}
+	router.GET("/api/me", middleware.Authenticated(), auth_context.TryUserFromRequest)
 }

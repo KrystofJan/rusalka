@@ -23,6 +23,10 @@ export default function SignUp() {
         callbackURL: '/login',
       },
       {
+        onSuccess: (ctx) => {
+          // Make an api endpoint to store everything and redirect to elsewhere
+          // window.
+        },
         onRequest: (ctx) => {
           //show loading
           setLoading(true);

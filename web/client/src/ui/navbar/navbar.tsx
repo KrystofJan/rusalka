@@ -6,6 +6,7 @@ import {
   HardHat,
   House,
   Keyboard,
+  Lightbulb,
   NotebookPen,
   Package,
   Palette,
@@ -71,6 +72,12 @@ export default function Navbar({ isOpened }: SidebarProps) {
       label: 'Products',
       link: '/products',
       icon: <HardHat />,
+      opened: isOpened,
+    },
+    {
+      label: 'Projects',
+      link: '/projects',
+      icon: <Lightbulb />,
       opened: isOpened,
     },
 

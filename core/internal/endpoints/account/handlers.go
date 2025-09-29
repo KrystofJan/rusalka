@@ -1,25 +1,20 @@
 package account
 
 import (
-	"context"
 	"net/http"
-	"strconv"
 
 	"github.com/KrystofJan/rusalka/core/internal/db"
 	er "github.com/KrystofJan/rusalka/core/internal/error"
 	"github.com/KrystofJan/rusalka/core/internal/repository"
 	"github.com/gin-gonic/gin"
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
-type AccountHandlerContext struct {
-	context context.Context
-}
+type AccountHandlerContext struct{}
 
-func (ctx AccountHandlerContext) FindAllAccounts(c *gin.Context) {
-	conn, err := db.NewDatabase(ctx.context)
+func (AccountHandlerContext) FindAllAccounts(ctx *gin.Context) {
+	conn, err := db.NewDatabase(ctx)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, er.HttpError{
+		ctx.JSON(http.StatusInternalServerError, er.HttpError{
 			Message: "Unable to connect to database",
 			Code:    er.DatabaseError,
 			Error:   err,
@@ -29,24 +24,20 @@ func (ctx AccountHandlerContext) FindAllAccounts(c *gin.Context) {
 
 	repo := repository.New(conn)
 
-	accounts, err := repo.FindAllAccounts(ctx.context)
+	accounts, err := repo.FindAllAccounts(ctx)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
+		ctx.JSON(http.StatusInternalServerError, err)
 		return
 	}
-	c.JSON(http.StatusOK, accounts)
+	ctx.JSON(http.StatusOK, accounts)
 }
 
-func (ctx AccountHandlerContext) FindSingle(c *gin.Context) {
+func (AccountHandlerContext) FindSingle(ctx *gin.Context) {
+	id := ctx.Param("id")
 
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	conn, err := db.NewDatabase(ctx)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
-	}
-
-	conn, err := db.NewDatabase(ctx.context)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, er.HttpError{
+		ctx.JSON(http.StatusInternalServerError, er.HttpError{
 			Message: "Unable to connect to database",
 			Code:    er.DatabaseError,
 			Error:   err,
@@ -55,10 +46,10 @@ func (ctx AccountHandlerContext) FindSingle(c *gin.Context) {
 	}
 
 	repo := repository.New(conn)
-	account, err := repo.FindAccountById(ctx.context, pgtype.Int8{Int64: id, Valid: true})
+	account, err := repo.FindAccountById(ctx, id)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, er.HttpError{
+		ctx.JSON(http.StatusInternalServerError, er.HttpError{
 			Message: "Something went wrong when querying the database",
 			Code:    er.RecordNotFound,
 			Error:   err,
@@ -66,5 +57,5 @@ func (ctx AccountHandlerContext) FindSingle(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, account)
+	ctx.JSON(http.StatusOK, account)
 }

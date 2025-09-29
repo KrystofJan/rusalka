@@ -7,8 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func TryUserFromRequest(ctx *gin.Context) {
-	user, err := UserFromRequest(ctx.Request)
+type AuthHandlerContext struct{}
+
+func (AuthHandlerContext) TryUserFromRequest(ctx *gin.Context) {
+	user, err := UserFromRequest(ctx)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, er.HttpError{

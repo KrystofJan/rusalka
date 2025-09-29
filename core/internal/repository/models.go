@@ -8,8 +8,53 @@ import (
 	"database/sql/driver"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
+
+type ProjectType string
+
+const (
+	ProjectTypeSchool     ProjectType = "school"
+	ProjectTypeCommertial ProjectType = "commertial"
+	ProjectTypeWork       ProjectType = "work"
+	ProjectTypePersonal   ProjectType = "personal"
+)
+
+func (e *ProjectType) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = ProjectType(s)
+	case string:
+		*e = ProjectType(s)
+	default:
+		return fmt.Errorf("unsupported scan type for ProjectType: %T", src)
+	}
+	return nil
+}
+
+type NullProjectType struct {
+	ProjectType ProjectType `json:"project_type"`
+	Valid       bool        `json:"valid"` // Valid is true if ProjectType is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullProjectType) Scan(value interface{}) error {
+	if value == nil {
+		ns.ProjectType, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.ProjectType.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullProjectType) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.ProjectType), nil
+}
 
 type Role string
 
@@ -54,9 +99,51 @@ func (ns NullRole) Value() (driver.Value, error) {
 	return string(ns.Role), nil
 }
 
+type ShowcaseType string
+
+const (
+	ShowcaseTypeNone     ShowcaseType = "none"
+	ShowcaseTypeExternal ShowcaseType = "external"
+	ShowcaseTypeEmbeded  ShowcaseType = "embeded"
+)
+
+func (e *ShowcaseType) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = ShowcaseType(s)
+	case string:
+		*e = ShowcaseType(s)
+	default:
+		return fmt.Errorf("unsupported scan type for ShowcaseType: %T", src)
+	}
+	return nil
+}
+
+type NullShowcaseType struct {
+	ShowcaseType ShowcaseType `json:"showcase_type"`
+	Valid        bool         `json:"valid"` // Valid is true if ShowcaseType is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullShowcaseType) Scan(value interface{}) error {
+	if value == nil {
+		ns.ShowcaseType, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.ShowcaseType.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullShowcaseType) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.ShowcaseType), nil
+}
+
 type Account struct {
-	ID            pgtype.Int8 `json:"id"`
-	Email         string      `json:"email"`
+	ID            string      `json:"id"`
 	FirstName     string      `json:"first_name"`
 	LastName      string      `json:"last_name"`
 	Role          Role        `json:"role"`
@@ -77,9 +164,11 @@ type Address struct {
 }
 
 type Project struct {
-	ID          pgtype.Int8 `json:"id"`
-	Title       string      `json:"title"`
-	Description string      `json:"description"`
-	GithubRepo  string      `json:"github_repo"`
-	Public      bool        `json:"public"`
+	ID           uuid.UUID    `json:"id"`
+	Title        string       `json:"title"`
+	Description  string       `json:"description"`
+	GithubRepo   pgtype.Text  `json:"github_repo"`
+	ShowcaseType ShowcaseType `json:"showcase_type"`
+	Type         ProjectType  `json:"type"`
+	Public       bool         `json:"public"`
 }

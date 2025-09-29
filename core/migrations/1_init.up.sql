@@ -1,5 +1,3 @@
-create database "rusalka-dev";
-
 CREATE TABLE address (
     id           bigserial PRIMARY KEY,
     street_line1 text        NOT NULL,
@@ -15,8 +13,7 @@ CREATE TABLE address (
 CREATE TYPE role AS ENUM ('admin', 'user', 'customer');
 
 create table accounts (
-    id bigint GENERATED ALWAYS AS IDENTITY,
-    email text not null,
+    id text not null PRIMARY KEY,
     first_name text not null,
     last_name text not null,
     role role not null default 'user',
@@ -24,16 +21,16 @@ create table accounts (
     phone_number text
 );
 
+CREATE TYPE showcase_type AS ENUM ('none', 'external', 'embeded');
+CREATE TYPE project_type AS ENUM ('school', 'commertial', 'work', 'personal');
+
 create table projects (
-    id bigint GENERATED ALWAYS AS IDENTITY,
+    id UUID PRIMARY KEY,
     title text not null,
     description text not null,
-    github_repo text not null,
+    github_repo text,
+    showcase_type showcase_type not null default 'none',
+    type project_type not null default 'personal',
     public boolean not null default true
 );
 
-INSERT INTO accounts (
-    email, first_name, last_name, role
-) VALUES ( 
-    'jendazah@gmail.com', 'Jan-Krystof', 'Kujel Zahradnik', 'admin' 
-)

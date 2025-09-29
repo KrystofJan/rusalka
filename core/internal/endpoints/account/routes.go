@@ -1,14 +1,12 @@
 package account
 
 import (
-	"context"
-
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes(ctx context.Context, router *gin.Engine) {
-	acc_context := &AccountHandlerContext{context: ctx}
+func SetupRoutes(router *gin.Engine) {
+	acc_context := AccountHandlerContext{}
 
-	router.GET("/accounts", acc_context.FindAllAccounts)
-	router.GET("/accounts/:id", acc_context.FindSingle)
+	router.GET("/api/accounts", acc_context.FindAllAccounts)
+	router.GET("/api/accounts/:id", acc_context.FindSingle)
 }
