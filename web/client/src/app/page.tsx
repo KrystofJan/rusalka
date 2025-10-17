@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import { auth } from '@/lib/auth';
-import { headers } from 'next/headers';
-import { Authenticated } from '@/lib/auth-checks';
+import { getServerAuthToken } from '@/lib/auth-server-checks';
+import Heading from '@/components/main-heading';
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 export default async function Home() {
   let values;
   // TODO: Handle error
-  const { token, error: _error } = await Authenticated('server');
+  const { token, error: _error } = await getServerAuthToken();
 
   if (!token) {
     values = (
@@ -21,7 +20,6 @@ export default async function Home() {
       </div>
     );
   } else {
-    console.log(token);
     const res = await fetch('http://localhost:8080/api/me', {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -37,6 +35,7 @@ export default async function Home() {
     const data2 = await response.json();
     values = (
       <div>
+        {{}}
         <h2 className="text-xl font-bold mb-4">UserID: {data.id}</h2>
         <h2 className="text-xl font-bold mb-4">Email: {data.email}</h2>
         <h2 className="text-xl font-bold mb-4">Name: {data.name}</h2>
@@ -55,7 +54,14 @@ export default async function Home() {
   return (
     <div className="space-y-brand-8 min-h-screen p-brand-8 shadow-terminal-xl">
       <div className="text-center mb-brand-12 p-brand-8 rounded-brand-xl shadow-terminal-lg">
-        <p className="text-brand-xl text-brand-subtext1">Rusalka</p>
+        <Heading
+          heading="Rusalka"
+          font="Standard"
+          className="text-brand-cyan mb-4"
+        />
+        <p className="text-brand-xl text-brand-subtext1 mt-4">
+          Welcome to my digital realm
+        </p>
       </div>
 
       <div className="space-y-8">{values}</div>

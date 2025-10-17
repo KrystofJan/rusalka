@@ -1,9 +1,10 @@
+import Heading from '@/components/main-heading';
 import ProjectList from './projects';
 
 export default function Projects() {
   return (
     <>
-      <h1>Projects</h1>
+      <Heading heading="Projects" />
       <ProjectList />
     </>
   );

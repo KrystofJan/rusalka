@@ -60,3 +60,37 @@ func (q *Queries) FindAllAccounts(ctx context.Context) ([]Account, error) {
 	}
 	return items, nil
 }
+
+const insertAccount = `-- name: InsertAccount :one
+INSERT INTO accounts (
+    id, first_name, last_name, role
+) values (
+    $1, $2, $3, $4
+) returning id, first_name, last_name, role, profile_pic_url, phone_number
+`
+
+type InsertAccountParams struct {
+	ID        string `json:"id"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Role      Role   `json:"role"`
+}
+
+func (q *Queries) InsertAccount(ctx context.Context, arg InsertAccountParams) (Account, error) {
+	row := q.db.QueryRow(ctx, insertAccount,
+		arg.ID,
+		arg.FirstName,
+		arg.LastName,
+		arg.Role,
+	)
+	var i Account
+	err := row.Scan(
+		&i.ID,
+		&i.FirstName,
+		&i.LastName,
+		&i.Role,
+		&i.ProfilePicUrl,
+		&i.PhoneNumber,
+	)
+	return i, err
+}

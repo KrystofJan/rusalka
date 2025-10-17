@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/KrystofJan/rusalka/core/internal/db"
-	er "github.com/KrystofJan/rusalka/core/internal/error"
 	"github.com/KrystofJan/rusalka/core/internal/repository"
+	"github.com/KrystofJan/rusalka/core/lib"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
@@ -15,9 +15,9 @@ type ProjectHandlerContext struct{}
 func (ProjectHandlerContext) FindAllAccounts(ctx *gin.Context) {
 	conn, err := db.NewDatabase(ctx)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, er.HttpError{
+		ctx.JSON(http.StatusInternalServerError, lib.HttpError{
 			Message: "Unable to connect to database",
-			Code:    er.DatabaseError,
+			Code:    lib.DatabaseError,
 			Error:   err,
 		})
 		return
@@ -36,9 +36,9 @@ func (ProjectHandlerContext) FindAllAccounts(ctx *gin.Context) {
 func (ProjectHandlerContext) FindSingle(ctx *gin.Context) {
 	id, err := uuid.Parse(ctx.Param("id"))
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, er.HttpError{
+		ctx.JSON(http.StatusBadRequest, lib.HttpError{
 			Message: "Unable to get the uuid from the request",
-			Code:    er.RequestError,
+			Code:    lib.RequestError,
 			Error:   err,
 		})
 		return
@@ -46,9 +46,9 @@ func (ProjectHandlerContext) FindSingle(ctx *gin.Context) {
 
 	conn, err := db.NewDatabase(ctx)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, er.HttpError{
+		ctx.JSON(http.StatusInternalServerError, lib.HttpError{
 			Message: "Unable to connect to database",
-			Code:    er.DatabaseError,
+			Code:    lib.DatabaseError,
 			Error:   err,
 		})
 		return
@@ -58,9 +58,9 @@ func (ProjectHandlerContext) FindSingle(ctx *gin.Context) {
 	project, err := repo.FindProjectById(ctx, id)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, er.HttpError{
+		ctx.JSON(http.StatusInternalServerError, lib.HttpError{
 			Message: "Something went wrong when querying the database",
-			Code:    er.RecordNotFound,
+			Code:    lib.RecordNotFound,
 			Error:   err,
 		})
 		return
@@ -73,9 +73,9 @@ func (ProjectHandlerContext) Insert(ctx *gin.Context) {
 	var project repository.InsertProjectParams
 	err := ctx.ShouldBind(&project)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, er.HttpError{
+		ctx.JSON(http.StatusBadRequest, lib.HttpError{
 			Message: "Unable to parse data in the body to the Project type",
-			Code:    er.RequestError,
+			Code:    lib.RequestError,
 			Error:   err,
 		})
 		return
@@ -83,9 +83,9 @@ func (ProjectHandlerContext) Insert(ctx *gin.Context) {
 
 	conn, err := db.NewDatabase(ctx)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, er.HttpError{
+		ctx.JSON(http.StatusInternalServerError, lib.HttpError{
 			Message: "Unable to connect to database",
-			Code:    er.DatabaseError,
+			Code:    lib.DatabaseError,
 			Error:   err,
 		})
 		return
@@ -94,9 +94,9 @@ func (ProjectHandlerContext) Insert(ctx *gin.Context) {
 	repo := repository.New(conn)
 	result, err := repo.InsertProject(ctx, project)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, er.HttpError{
+		ctx.JSON(http.StatusInternalServerError, lib.HttpError{
 			Message: "Something went wrong when querying the database",
-			Code:    er.RecordNotFound,
+			Code:    lib.RecordNotFound,
 			Error:   err,
 		})
 		return

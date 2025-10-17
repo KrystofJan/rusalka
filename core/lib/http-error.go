@@ -1,4 +1,4 @@
-package error
+package lib
 
 type ErrorCode int
 
@@ -8,10 +8,11 @@ const (
 	AuthenticationError ErrorCode = 1003
 	ResourceError       ErrorCode = 1004
 	RequestError        ErrorCode = 1005
+	CacheError          ErrorCode = 1006
 )
 
 type HttpError struct {
-	Message string
-	Code    ErrorCode
-	Error   error
+	Message string    `json:"message"`
+	Code    ErrorCode `json:"code"`
+	Error   error     `json:"-"` // Don't serialize the error field
 }
