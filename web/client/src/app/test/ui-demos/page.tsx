@@ -15,6 +15,14 @@ import {
 export default function UIDemos() {
   const demos = [
     {
+      title: 'Zod Form Validation',
+      description: 'Advanced form validation using Zod schemas with type-safe validation, real-time error handling, and comprehensive validation rules.',
+      path: '/test/zod-forms',
+      features: ['Zod Schemas', 'Type Safety', 'Real-time Validation', 'Custom Rules'],
+      complexity: 'Advanced',
+      badge: 'New',
+    },
+    {
       title: 'Component Showcase',
       description: 'Comprehensive demonstration of all UI components with interactive examples and real-time state management.',
       path: '/test/component-showcase',

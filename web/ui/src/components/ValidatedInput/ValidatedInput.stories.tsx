@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 import { ValidatedInput } from "./ValidatedInput";
 
@@ -109,11 +109,7 @@ export const InputTypes: Story = {
         type="url"
         placeholder="https://example.com"
       />
-      <ValidatedInput
-        label="Age"
-        type="number"
-        placeholder="Enter your age"
-      />
+      <ValidatedInput label="Age" type="number" placeholder="Enter your age" />
     </div>
   ),
 };

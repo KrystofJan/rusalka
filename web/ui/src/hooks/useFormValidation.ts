@@ -1,6 +1,10 @@
+"use client";
 import { useState, useCallback, useMemo } from "react";
 import { z } from "zod";
-import { validateWithSchema, type ValidationResult } from "../utils/form-validation";
+import {
+  validateWithSchema,
+  type ValidationResult,
+} from "../utils/form-validation";
 
 /**
  * Configuration options for the form validation hook
@@ -10,17 +14,17 @@ export interface UseFormValidationOptions {
    * Whether to validate on change (real-time validation)
    */
   validateOnChange?: boolean;
-  
+
   /**
    * Whether to validate on blur
    */
   validateOnBlur?: boolean;
-  
+
   /**
    * Debounce delay for real-time validation (in milliseconds)
    */
   debounceMs?: number;
-  
+
   /**
    * Custom error messages for specific fields
    */
@@ -33,7 +37,7 @@ export interface UseFormValidationOptions {
 export function useFormValidation<T extends Record<string, any>>(
   schema: z.ZodSchema<T>,
   initialData: T,
-  options: UseFormValidationOptions = {}
+  options: UseFormValidationOptions = {},
 ) {
   const {
     validateOnChange = false,
@@ -44,8 +48,12 @@ export function useFormValidation<T extends Record<string, any>>(
 
   // Form state
   const [data, setData] = useState<T>(initialData);
-  const [errors, setErrors] = useState<Record<keyof T, string>>({} as Record<keyof T, string>);
-  const [touched, setTouched] = useState<Record<keyof T, boolean>>({} as Record<keyof T, boolean>);
+  const [errors, setErrors] = useState<Record<keyof T, string>>(
+    {} as Record<keyof T, string>,
+  );
+  const [touched, setTouched] = useState<Record<keyof T, boolean>>(
+    {} as Record<keyof T, boolean>,
+  );
   const [isValidating, setIsValidating] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
@@ -58,27 +66,27 @@ export function useFormValidation<T extends Record<string, any>>(
   const validateForm = useCallback(
     (formData: T = data): ValidationResult<T> => {
       const result = validateWithSchema(schema, formData);
-      
+
       if (result.success) {
         setErrors({} as Record<keyof T, string>);
         setIsValid(true);
       } else {
         const newErrors = { ...result.fieldErrors } as Record<keyof T, string>;
-        
+
         // Apply custom error messages
         Object.keys(customErrorMessages).forEach((field) => {
           if (newErrors[field as keyof T]) {
             newErrors[field as keyof T] = customErrorMessages[field];
           }
         });
-        
+
         setErrors(newErrors);
         setIsValid(false);
       }
-      
+
       return result;
     },
-    [data, schema, customErrorMessages]
+    [data, schema, customErrorMessages],
   );
 
   /**
@@ -90,7 +98,7 @@ export function useFormValidation<T extends Record<string, any>>(
         // Create a temporary object with the updated field value
         const tempData = { ...data, [fieldName]: value };
         const result = validateWithSchema(schema, tempData);
-        
+
         if (result.success || !result.fieldErrors?.[fieldName]) {
           setErrors((prev) => {
             const newErrors = { ...prev };
@@ -98,7 +106,9 @@ export function useFormValidation<T extends Record<string, any>>(
             return newErrors;
           });
         } else {
-          const errorMessage = customErrorMessages[fieldName as string] || result.fieldErrors[fieldName];
+          const errorMessage =
+            customErrorMessages[fieldName as string] ||
+            result.fieldErrors[fieldName];
           setErrors((prev) => ({
             ...prev,
             [fieldName]: errorMessage,
@@ -108,7 +118,7 @@ export function useFormValidation<T extends Record<string, any>>(
         console.error("Field validation error:", error);
       }
     },
-    [data, schema, customErrorMessages]
+    [data, schema, customErrorMessages],
   );
 
   /**
@@ -117,17 +127,17 @@ export function useFormValidation<T extends Record<string, any>>(
   const updateField = useCallback(
     (fieldName: keyof T, value: any) => {
       setData((prev) => ({ ...prev, [fieldName]: value }));
-      
+
       if (validateOnChange) {
         if (debounceMs > 0) {
           if (debounceTimer) {
             clearTimeout(debounceTimer);
           }
-          
+
           const timer = setTimeout(() => {
             validateField(fieldName, value);
           }, debounceMs);
-          
+
           // Store timer reference (note: this is a simplified approach)
           // In a real implementation, you'd want to use useRef for the timer
         } else {
@@ -135,7 +145,7 @@ export function useFormValidation<T extends Record<string, any>>(
         }
       }
     },
-    [validateOnChange, debounceMs, validateField, debounceTimer]
+    [validateOnChange, debounceMs, validateField, debounceTimer],
   );
 
   /**
@@ -144,12 +154,12 @@ export function useFormValidation<T extends Record<string, any>>(
   const handleFieldBlur = useCallback(
     (fieldName: keyof T) => {
       setTouched((prev) => ({ ...prev, [fieldName]: true }));
-      
+
       if (validateOnBlur) {
         validateField(fieldName, data[fieldName]);
       }
     },
-    [validateOnBlur, validateField, data]
+    [validateOnBlur, validateField, data],
   );
 
   /**
@@ -163,7 +173,7 @@ export function useFormValidation<T extends Record<string, any>>(
       setTouched({} as Record<keyof T, boolean>);
       setIsValid(false);
     },
-    [initialData]
+    [initialData],
   );
 
   /**
@@ -172,20 +182,20 @@ export function useFormValidation<T extends Record<string, any>>(
   const handleSubmit = useCallback(
     async (onSubmit: (data: T) => Promise<void> | void) => {
       setIsValidating(true);
-      
+
       try {
         const result = validateForm();
-        
+
         if (result.success && result.data) {
           await onSubmit(result.data);
         }
-        
+
         return result;
       } finally {
         setIsValidating(false);
       }
     },
-    [validateForm]
+    [validateForm],
   );
 
   /**
@@ -195,7 +205,7 @@ export function useFormValidation<T extends Record<string, any>>(
     (fieldName: keyof T): string | undefined => {
       return touched[fieldName] ? errors[fieldName] : undefined;
     },
-    [errors, touched]
+    [errors, touched],
   );
 
   /**
@@ -205,7 +215,7 @@ export function useFormValidation<T extends Record<string, any>>(
     (fieldName: keyof T): boolean => {
       return Boolean(touched[fieldName] && errors[fieldName]);
     },
-    [errors, touched]
+    [errors, touched],
   );
 
   /**
@@ -218,9 +228,11 @@ export function useFormValidation<T extends Record<string, any>>(
       onBlur: () => handleFieldBlur(fieldName),
       error: getFieldError(fieldName),
       hasError: hasFieldError(fieldName),
-      variant: hasFieldError(fieldName) ? ("error" as const) : ("default" as const),
+      variant: hasFieldError(fieldName)
+        ? ("error" as const)
+        : ("default" as const),
     }),
-    [data, updateField, handleFieldBlur, getFieldError, hasFieldError]
+    [data, updateField, handleFieldBlur, getFieldError, hasFieldError],
   );
 
   /**
@@ -231,10 +243,12 @@ export function useFormValidation<T extends Record<string, any>>(
       isValid,
       isValidating,
       hasErrors: Object.keys(errors).length > 0,
-      touchedFields: Object.keys(touched).filter((key) => touched[key as keyof T]),
+      touchedFields: Object.keys(touched).filter(
+        (key) => touched[key as keyof T],
+      ),
       errorCount: Object.keys(errors).length,
     }),
-    [isValid, isValidating, errors, touched]
+    [isValid, isValidating, errors, touched],
   );
 
   return {
@@ -242,10 +256,10 @@ export function useFormValidation<T extends Record<string, any>>(
     data,
     errors,
     touched,
-    
+
     // State
     ...formState,
-    
+
     // Actions
     updateField,
     validateForm,
@@ -253,12 +267,12 @@ export function useFormValidation<T extends Record<string, any>>(
     handleFieldBlur,
     resetForm,
     handleSubmit,
-    
+
     // Helpers
     getFieldError,
     hasFieldError,
     getFieldProps,
-    
+
     // Utilities
     setData,
     setErrors,
@@ -271,7 +285,7 @@ export function useFormValidation<T extends Record<string, any>>(
  */
 export function useSimpleFormValidation<T extends Record<string, any>>(
   schema: z.ZodSchema<T>,
-  initialData: T
+  initialData: T,
 ) {
   return useFormValidation(schema, initialData, {
     validateOnChange: false,
@@ -285,7 +299,7 @@ export function useSimpleFormValidation<T extends Record<string, any>>(
 export function useRealtimeFormValidation<T extends Record<string, any>>(
   schema: z.ZodSchema<T>,
   initialData: T,
-  debounceMs: number = 300
+  debounceMs: number = 300,
 ) {
   return useFormValidation(schema, initialData, {
     validateOnChange: true,

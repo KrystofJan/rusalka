@@ -13,6 +13,13 @@ pkgs.mkShell {
     gopls
     gotools
     templ
+    sqlc
+    (go-migrate.overrideAttrs
+      (oldAttrs: {
+        tags = ["postgres"];
+      }))
+    air
+    postgresql_17
 
     # nix stuff
     nixd

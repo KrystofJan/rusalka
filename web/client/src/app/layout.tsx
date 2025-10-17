@@ -4,6 +4,7 @@ import '@rusalka/ui/styles';
 import './globals.css';
 
 import SidebarWrapper from '@/ui/navbar/sidebar-wrapper';
+import { UserKnobServer } from '@/components/user-knob-server';
 import { firaCode } from './fonts';
 
 export const metadata: Metadata = {
@@ -29,6 +30,9 @@ export default function RootLayout({
         <div className="content flex-1 bg-brand-bg-dark hover:bg-brand-bg p-4">
           {children}
         </div>
+
+        {/* User Menu - Fixed in top right */}
+        <UserKnobServer />
       </body>
     </html>
   );

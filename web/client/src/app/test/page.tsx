@@ -14,12 +14,19 @@ import {
 export default function TestIndex() {
   const uiDemos = [
     {
+      title: 'Zod Form Validation',
+      description: 'Advanced form validation using Zod schemas with type-safe validation and real-time error handling',
+      path: '/test/zod-forms',
+      badge: 'New',
+      variant: 'default' as const,
+    },
+    {
       title: 'UI Component Demos',
       description:
         'Interactive demonstrations of the complete @rusalka/ui component library',
       path: '/test/ui-demos',
-      badge: 'New',
-      variant: 'default' as const,
+      badge: 'Featured',
+      variant: 'secondary' as const,
     },
     {
       title: 'Component Showcase',
