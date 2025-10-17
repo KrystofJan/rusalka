@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+/**
+ * Rusalka Design System - Global Styles
+ *
+ * This file contains all design tokens, CSS custom properties, and base styles
+ * for the Rusalka terminal theme. Variable names have been updated to match
+ * the UI package's naming convention while preserving the original colors.
+ */
+
+/* Simplified Client Color Overrides */
+:root {
+  --font-fira-code: 'Fira Code', monospace;
+
+  --client-brand-red-h: 340;
+  --client-brand-red-s: 71%;
+  --client-brand-red-l: 72%;
+
+  --client-brand-green-h: 140;
+  --client-brand-green-s: 20%;
+  --client-brand-green-l: 65%;
+
+  --client-brand-yellow-h: 25;
+  --client-brand-yellow-s: 45%;
+  --client-brand-yellow-l: 75%;
+
+  --client-brand-purple-h: 260;
+  --client-brand-purple-s: 35%;
+  --client-brand-purple-l: 72%;
+
+  --client-brand-magenta-h: 320;
+  --client-brand-magenta-s: 60%;
+  --client-brand-magenta-l: 75%;
+
+  --client-brand-orange-h: 15;
+  --client-brand-orange-s: 85%;
+  --client-brand-orange-l: 76%;
+
+  --client-brand-blue-h: 230;
+  --client-brand-blue-s: 55%;
+  --client-brand-blue-l: 70%;
+
+  --client-brand-cyan-h: 185;
+  --client-brand-cyan-s: 25%;
+  --client-brand-cyan-l: 63%;
+
+  /* Primary, Secondary, Tertiary Color System Mappings */
+  --client-primary-h: var(--client-brand-cyan-h);
+  --client-primary-s: var(--client-brand-cyan-s);
+  --client-primary-l: var(--client-brand-cyan-l);
+
+  /* Secondary color mapped to red for Rusalka theme */
+  --client-secondary-h: var(--client-brand-red-h);
+  --client-secondary-s: var(--client-brand-red-s);
+  --client-secondary-l: var(--client-brand-red-l);
+
+  /* Tertiary color mapped to yellow for Rusalka theme */
+  --client-tertiary-h: var(--client-brand-yellow-h);
+  --client-tertiary-s: var(--client-brand-yellow-s);
+  --client-tertiary-l: var(--client-brand-yellow-l);
+
+  --color-brand-bg: hsl(240, 2%, 9%);
+  --color-brand-bg-dark: hsl(240, 3%, 8%);
+  --color-brand-fg: hsl(260, 6%, 79%);
+  --color-brand-black: #000;
+
+  --color-brand-subtext1: #b4b1ba;
+  --color-brand-subtext2: #9f9ca6;
+  --color-brand-subtext3: #8b8693;
+  --color-brand-subtext4: #6c6874;
+
+  --color-brand-gray0: #18181a;
+  --color-brand-gray1: #1b1b1c;
+  --color-brand-gray2: #2a2a2c;
+  --color-brand-gray3: #313134;
+  --color-brand-gray4: #3b3b3e;
+  --color-brand-gray5: #444448;
+}
+
+/* Original sidebar animations */
+.sidebar-transition {
+  transition-property: width, padding-left, padding-right, gap;
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-duration: 400ms;
+}
+
+.sidebar-content-transition {
+  transition-property: gap, opacity, transform;
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-duration: 400ms;
+}
+
+/* Base styles for consistent typography and layout */
+body {
+  font-family: var(--font-fira-code), monospace;
+  background-color: #161617;
+  color: #c9c7cd;
+  line-height: 1.5;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary-h) var(--primary-s) var(--primary-l));
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1b1b1c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b3b3e;
+  border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444448;
+}
+
+/* Selection styling */
+::selection {
+  background-color: hsl(var(--primary-h) var(--primary-s) var(--primary-l));
+  color: #161617;
+}
